@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var taskVM: TaskViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List{
+                ForEach (taskVM.tasks, id: \.self) { task in
+                    NavigationLink(destination: TaskDetailView(taskName: task)) {
+                        Text(task)
+                    }
+                }
+            }
+            .navigationTitle(Text("My Tasks"))
+            .toolbar {
+                NavigationLink(destination: AddTaskView()) {
+                    Label("Add", systemImage: "plus.circle.fill")
+                }
+            }
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(TaskViewModel())
 }

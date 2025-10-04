@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct SimpleTasksApp: App {
+    @StateObject private var taskVM = TaskViewModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(taskVM) //share data across all views
         }
     }
 }
