@@ -18,13 +18,20 @@ struct ContentView: View {
                         Text(task)
                     }
                 }
+                .onDelete(perform: taskVM.deleteTask)
             }
             .navigationTitle(Text("My Tasks"))
             .toolbar {
-                NavigationLink(destination: AddTaskView()) {
-                    Label("Add", systemImage: "plus.circle.fill")
+                ToolbarItem(placement:.topBarTrailing) {
+                    NavigationLink(destination: AddTaskView()) {
+                        Label("Add", systemImage: "plus.circle.fill")
+                    }
+                }
+                ToolbarItem(placement:.bottomBar) {
+                    EditButton()
                 }
             }
+            
         }
     }
 }
