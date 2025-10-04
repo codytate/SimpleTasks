@@ -7,7 +7,10 @@
 
 import SwiftUI
 
+/// Screen to enter and save a new task into the shared TaskViewModel.
 struct AddTaskView: View {
+    // MARK: - Body
+    
     @State private var newTask = ""
     @EnvironmentObject var taskVM: TaskViewModel
     @Environment(\.dismiss) var dismiss
@@ -15,6 +18,7 @@ struct AddTaskView: View {
     var body: some View {
         VStack(spacing: 20) {
             TextField("Enter new task",text: $newTask)
+                .accessibilityIdentifier("newTaskTextField")
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
             
@@ -25,8 +29,9 @@ struct AddTaskView: View {
                 newTask = ""
                 dismiss() // return to previous screen
             }
+            .accessibilityIdentifier("saveTaskButton")
             .buttonStyle(.borderedProminent)
-            .disabled(newTask.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            .disabled(newTask.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty) // Disable until there's non-whitespace text
             
             Spacer()
         }
